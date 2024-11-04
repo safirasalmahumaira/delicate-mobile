@@ -31,7 +31,9 @@ Perbedaan antara `const` dan `final` adalah sebagai berikut:
 - **const**: Digunakan untuk mendefinisikan nilai konstan pada waktu kompilasi (compile-time constant). Nilainya harus sudah diketahui sebelum program berjalan dan bersifat immutable.
 - **final**: Digunakan untuk variabel yang nilainya ditetapkan sekali dan tidak dapat diubah setelahnya. Nilainya dapat ditentukan saat runtime, bukan hanya pada waktu kompilasi.
 
+
 ## 5. Jelaskan bagaimana cara kamu mengimplementasikan checklist-checklist di atas.
+
 Saya membuat proyek flutter bernama `delicate-mobile`. Karena saya menggunakan VS Code, dan telah menginstal semua ekstensi yang dibutuhkan, proyek ini dibuat dengan menekan `Command + Shift + P`.
 
 Selanjutnya, saya merapikan kode dengan memindahkan beberapa potongan kode ke dalam `menu.dart` yang saya buat.
@@ -46,24 +48,10 @@ final List<ItemHomepage> items = [
   ItemHomepage("Logout", Icons.logout, Colors.yellow),
 ];
 
-Jelaskan cara kamu menerapkan checklist di atas.
-Saya membuat proyek Flutter bernama delicate-mobile menggunakan VS Code. Setelah menginstal semua ekstensi yang diperlukan, saya memulai proyek ini dengan menekan command + shift + p.
 
-Selanjutnya, saya merapikan kode dengan memindahkan beberapa bagian ke dalam file menu.dart yang saya buat.
 
-Untuk membuat tiga tombol sederhana dengan ikon dan teks—"Lihat Daftar Produk," "Tambah Produk," dan "Logout"—saya menggunakan kelas ItemHomepage yang mendefinisikan nama, ikon, dan warna setiap tombol. Objek-objek ini disimpan dalam daftar items:
 
-dart
-Copy code
-final List<ItemHomepage> items = [
-  ItemHomepage("Lihat Daftar Produk", Icons.list_alt, Colors.red),
-  ItemHomepage("Tambah Produk", Icons.add, Colors.blue),
-  ItemHomepage("Logout", Icons.logout, Colors.yellow),
-];
 Setiap tombol memiliki warna latar belakang yang berbeda, yang diatur menggunakan properti color di dalam ItemCard melalui widget Material:
-
-dart
-Copy code
 return Material(
   color: item.color, // Warna diambil dari properti color
   borderRadius: BorderRadius.circular(12),
@@ -71,10 +59,14 @@ return Material(
     // Aksi untuk interaksi
   ),
 );
+
+
+
 Saya juga menambahkan aksi untuk menampilkan snackbar ketika tombol ditekan. Di dalam ItemCard, InkWell menangani aksi saat tombol ditekan, dan ScaffoldMessenger digunakan untuk menampilkan snackbar yang sesuai dengan nama tombol:
 
-dart
-Copy code
+
+
+
 onTap: () {
   ScaffoldMessenger.of(context)
     ..hideCurrentSnackBar()
@@ -82,3 +74,4 @@ onTap: () {
       SnackBar(content: Text("Kamu telah menekan tombol ${item.name}")),
     );
 },
+
