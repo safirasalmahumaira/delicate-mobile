@@ -1,77 +1,54 @@
+# Delicate Mobile
+
 # Tugas 7
 
 ## 1. Jelaskan apa yang dimaksud dengan stateless widget dan stateful widget, dan jelaskan perbedaan dari keduanya.
-Stateless Widget adalah widget dengan tampilan tetap yang tidak berubah selama aplikasi berjalan karena tidak memiliki state (keadaan) yang dapat berubah. Sebaliknya, Stateful Widget memiliki state internal yang dapat berubah, sehingga dapat memperbarui tampilan saat terjadi perubahan data. Perbedaan utama antara keduanya adalah kemampuan Stateful Widget untuk merespons perubahan data dan memperbarui UI, sementara Stateless Widget tidak memiliki kemampuan tersebut.
+- **Stateless Widget**: Widget tanpa perubahan status. UI bersifat statis, cocok untuk elemen yang tidak berubah seperti teks atau ikon.
+  
+- **Stateful Widget**: Widget yang bisa berubah karena interaksi atau data yang berubah. Memiliki status internal, cocok untuk UI dinamis seperti tombol atau formulir.
+
+### Perbedaan:
+- **Stateless Widget**: Tidak berubah setelah dibuat.
+- **Stateful Widget**: Bisa berubah dengan memodifikasi statusnya.
 
 ## 2. Sebutkan widget apa saja yang kamu gunakan pada proyek ini dan jelaskan fungsinya.
-Berikut adalah widget yang saya gunakan pada proyek ini:
+Beberapa widget yang digunakan dalam proyek ini meliputi:
 
-- **Scaffold**: Memberikan struktur dasar aplikasi dengan AppBar dan body.
-- **AppBar**: Menampilkan bar di bagian atas aplikasi yang berisi judul.
-- **Padding**: Memberikan jarak di sekitar widget anaknya.
-- **Column**: Menyusun widget secara vertikal.
-- **Row**: Menyusun widget secara horizontal.
-- **Card**: Menampilkan kotak dengan sudut melengkung dan bayangan, digunakan dalam InfoCard.
-- **Container**: Membungkus widget lain dan memungkinkan pengaturan ukuran, padding, dan dekorasi.
+- **Scaffold**: Struktur dasar halaman yang menyediakan layout standar untuk aplikasi, seperti AppBar di bagian atas dan body di tengah.
+  
+- **AppBar**: Digunakan untuk menampilkan judul aplikasi di bagian atas layar.
+  
+- **Padding**: Widget untuk memberikan jarak atau margin di sekitar widget lain.
+  
+- **Column**: Menyusun widget secara vertikal (dari atas ke bawah).
+  
+- **Row**: Menyusun widget secara horizontal (dari kiri ke kanan).
+  
+- **InfoCard**: Widget khusus yang dibuat untuk menampilkan informasi berupa judul dan konten, seperti NPM, nama, dan kelas.
+  
+- **GridView**: Menyusun widget dalam bentuk grid atau tabel, memungkinkan pembuatan layout dengan beberapa kolom.
+  
+- **Material**: Memberikan tema material pada widget, termasuk efek seperti bayangan dan ketinggian (elevation).
+  
+- **InkWell**: Widget yang merespons interaksi pengguna, seperti sentuhan atau klik, dan memberikan efek visual seperti ripple.
+  
+- **Icon**: Menampilkan ikon dari kumpulan ikon bawaan Flutter.
+  
 - **Text**: Menampilkan teks di layar.
-- **SizedBox**: Memberikan jarak vertikal antara widget.
-- **Center**: Menempatkan widget di tengah parent-nya.
-- **GridView.count**: Menampilkan widget dalam bentuk grid dengan jumlah kolom tertentu.
-- **Material**: Menyediakan efek material seperti bayangan dan warna latar belakang.
-- **InkWell**: Menangani interaksi sentuhan pada widget dan memberikan efek ripple.
-- **Icon**: Menampilkan ikon.
-- **SnackBar**: Menampilkan pesan sementara di bagian bawah layar.
 
 ## 3. Apa fungsi dari setState()? Jelaskan variabel apa saja yang dapat terdampak dengan fungsi tersebut.
-Fungsi `setState()` digunakan dalam Stateful Widget untuk memberi tahu Flutter bahwa ada perubahan pada state internal widget, sehingga framework perlu membangun ulang UI dengan data terbaru. Variabel yang terpengaruh adalah semua variabel state yang didefinisikan dalam kelas State. Dalam kode saya, karena menggunakan StatelessWidget, fungsi `setState()` tidak digunakan karena tidak ada state yang berubah.
+Fungsi `setState()` digunakan untuk memberi tahu Flutter bahwa ada perubahan dalam status internal suatu Stateful Widget dan harus memperbarui tampilan widget tersebut. Ketika `setState()` dipanggil, Flutter akan menjalankan ulang metode `build()` dari widget untuk memperbarui UI berdasarkan perubahan data. Variabel yang bisa berubah melalui `setState()` adalah variabel yang mempengaruhi tampilan UI, seperti teks, status tombol, atau data input.
 
 ## 4. Jelaskan perbedaan antara const dengan final.
-Perbedaan antara `const` dan `final` adalah sebagai berikut:
-
-- **const**: Digunakan untuk mendefinisikan nilai konstan pada waktu kompilasi (compile-time constant). Nilainya harus sudah diketahui sebelum program berjalan dan bersifat immutable.
-- **final**: Digunakan untuk variabel yang nilainya ditetapkan sekali dan tidak dapat diubah setelahnya. Nilainya dapat ditentukan saat runtime, bukan hanya pada waktu kompilasi.
-
+`const` dan `final` digunakan untuk mendeklarasikan variabel yang nilainya tidak bisa diubah setelah diinisialisasi, tetapi perbedaannya adalah `const` mengharuskan nilai diketahui pada waktu kompilasi dan bersifat immutable, sementara `final` lebih fleksibel karena nilainya dapat diinisialisasi pada runtime, meskipun tetap tidak dapat diubah setelah ditetapkan.
 
 ## 5. Jelaskan bagaimana cara kamu mengimplementasikan checklist-checklist di atas.
-
-Saya membuat proyek flutter bernama `delicate-mobile`. Karena saya menggunakan VS Code, dan telah menginstal semua ekstensi yang dibutuhkan, proyek ini dibuat dengan menekan `Command + Shift + P`.
-
-Selanjutnya, saya merapikan kode dengan memindahkan beberapa potongan kode ke dalam `menu.dart` yang saya buat.
-
-### Implementasi Tiga Tombol
-Untuk membuat tiga tombol sederhana dengan ikon dan teks untuk: **Lihat Daftar Produk**, **Tambah Produk**, dan **Logout**, saya mengimplementasikan kelas `ItemHomepage` yang mendefinisikan nama, ikon, dan warna tombol. Objek-objek ini dimasukkan ke dalam list `items` sebagai berikut:
-
-```dart
-final List<ItemHomepage> items = [
-  ItemHomepage("Lihat Daftar Produk", Icons.list_alt, Colors.red),
-  ItemHomepage("Tambah Produk", Icons.add, Colors.blue),
-  ItemHomepage("Logout", Icons.logout, Colors.yellow),
-];
-
-
-
-
-Setiap tombol memiliki warna latar belakang yang berbeda, yang diatur menggunakan properti color di dalam ItemCard melalui widget Material:
-return Material(
-  color: item.color, // Warna diambil dari properti color
-  borderRadius: BorderRadius.circular(12),
-  child: InkWell(
-    // Aksi untuk interaksi
-  ),
-);
-
-
-
-Saya juga menambahkan aksi untuk menampilkan snackbar ketika tombol ditekan. Di dalam ItemCard, InkWell menangani aksi saat tombol ditekan, dan ScaffoldMessenger digunakan untuk menampilkan snackbar yang sesuai dengan nama tombol:
-
-
-
-
-onTap: () {
-  ScaffoldMessenger.of(context)
-    ..hideCurrentSnackBar()
-    ..showSnackBar(
-      SnackBar(content: Text("Kamu telah menekan tombol ${item.name}")),
-    );
-},
-
+1. Buat proyek Flutter baru dengan nama `delicate` menggunakan perintah `flutter create delicate`, lalu masuk ke direktori tersebut dengan `cd delicate`.
+2. Jalankan aplikasi Flutter menggunakan `flutter run` atau jalankan di Google Chrome dengan perintah `flutter run -d chrome`.
+3. Atur tema warna di `main.dart` menggunakan `ColorScheme.fromSwatch` dan ubah warna menjadi kombinasi biru-hijau, misalnya `Colors.teal` untuk primary dan `Colors.tealAccent` untuk secondary.
+4. Pindahkan widget `MyHomePage` dari `main.dart` ke file baru `menu.dart` di dalam folder `lib` dengan menambahkan `import 'package:delicate/menu.dart';` di `main.dart`.
+5. Deklarasikan variabel `npm`, `name`, dan `className` dalam `MyHomePage` di `menu.dart` untuk menampilkan NPM, nama, dan kelas.
+6. Buat `InfoCard` di `menu.dart` untuk menampilkan informasi NPM, nama, dan kelas dalam bentuk kartu sederhana.
+7. Tambahkan list `ItemHomepage` di `menu.dart` yang berisi tiga tombol: "Lihat Daftar Produk", "Tambah Produk", dan "Logout".
+8. Implementasikan `ItemCard` di `menu.dart` untuk menampilkan tombol-tombol tersebut dan munculkan `SnackBar` saat tombol ditekan, menampilkan pesan sesuai tombol yang ditekan.
+9. Tampilkan `InfoCard` dan `ItemCard` di `MyHomePage` menggunakan `GridView` dan `Row` untuk layout tombol dan informasi.
