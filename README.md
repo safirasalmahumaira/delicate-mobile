@@ -1,4 +1,18 @@
-# Tugas 7
+# Delicate - Skincare and Makeup
+Nama: Safira Salma Humaira 
+
+
+NPM: 2306245850 
+
+
+Kelas: PBP F
+
+
+Repository GitHub ini merupakan representasi dari **Delicate Mobile**, sebuah platform e-commerce yang dibuat sebagai bagian dari **Tugas Pemrograman Berbasis Platform**.
+
+
+<details>
+  <summary>Tugas 7</summary>
 
 ## 1. Jelaskan apa yang dimaksud dengan stateless widget dan stateful widget, dan jelaskan perbedaan dari keduanya.
 Stateless Widget adalah widget dengan tampilan tetap yang tidak berubah selama aplikasi berjalan karena tidak memiliki state (keadaan) yang dapat berubah. Sebaliknya, Stateful Widget memiliki state internal yang dapat berubah, sehingga dapat memperbarui tampilan saat terjadi perubahan data. Perbedaan utama antara keduanya adalah kemampuan Stateful Widget untuk merespons perubahan data dan memperbarui UI, sementara Stateless Widget tidak memiliki kemampuan tersebut.
@@ -82,3 +96,60 @@ onTap: () {
       SnackBar(content: Text("Kamu telah menekan tombol ${item.name}")),
     );
 },
+
+</details>
+
+
+<details>
+  <summary>Tugas 3</summary>
+
+## 1. Apa kegunaan const di Flutter? Jelaskan apa keuntungan ketika menggunakan const pada kode Flutter. Kapan sebaiknya kita menggunakan const, dan kapan sebaiknya tidak digunakan?
+Di Flutter, const digunakan untuk mendefinisikan objek-objek yang sifatnya tetap (immutable) dan menjadikannya konstan pada saat kompilasi (compile-time constants). Artinya, nilai-nilai tersebut sudah ditentukan ketika aplikasi dikompilasi, bukan saat dijalankan. Ini dapat menghemat penggunaan memori karena Flutter tidak perlu membuat ulang objek tersebut setiap kali widget diperbarui. Menggunakan const memberikan keuntungan berupa peningkatan kinerja, sebab objek const hanya dibuat satu kali. Sebaiknya const diterapkan pada widget yang statis dan tidak berubah selama siklus hidup aplikasi (seperti teks, ikon, atau padding yang tetap). Selain itu, const cocok untuk elemen-elemen dengan nilai tetap yang sering digunakan di beberapa bagian aplikasi, seperti warna atau margin tertentu. Namun, const sebaiknya dihindari pada widget yang bergantung pada state atau kondisi yang bisa berubah.
+
+## 2. Jelaskan dan bandingkan penggunaan Column dan Row pada Flutter. Berikan contoh implementasi dari masing-masing layout widget ini!
+
+Column dan Row adalah widget layout di Flutter yang digunakan untuk menempatkan widget lain dalam susunan baris atau kolom.
+
+Column: Menyusun widget secara vertikal, dari atas ke bawah. Biasanya dipakai untuk menumpuk elemen-elemen dalam satu kolom pada layar.
+Row: Menyusun widget secara horizontal, dari kiri ke kanan, sehingga elemen-elemen ditempatkan berdampingan.
+Contoh penggunaan Column:
+Column(
+  children: [
+    Text("Item 1"),
+    Text("Item 2"),
+  ],
+);
+
+Contoh penggunaan Row:
+Row(
+  children: [
+    Icon(Icons.star),
+    Text("Rating"),
+  ],
+);
+
+
+## 3. Sebutkan apa saja elemen input yang kamu gunakan pada halaman form yang kamu buat pada tugas kali ini. Apakah terdapat elemen input Flutter lain yang tidak kamu gunakan pada tugas ini? Jelaskan!
+Berikut adalah elemen input yang digunakan di halaman form:
+
+TextFormField: Dipakai untuk memasukkan data teks dalam formulir, seperti Item, Amount, dan Description.
+Elemen input Flutter lain yang tidak dipakai dalam tugas ini meliputi:
+
+Checkbox: Digunakan untuk memilih antara dua opsi (aktif/non-aktif).
+Switch: Menyediakan opsi aktif/non-aktif dalam bentuk saklar.
+Slider: Memungkinkan pemilihan nilai dalam rentang tertentu.
+DropdownButton: Digunakan untuk memilih satu opsi dari beberapa pilihan dalam bentuk dropdown.
+DatePicker/TimePicker: Memfasilitasi pemilihan tanggal atau waktu, biasanya dipakai di aplikasi yang memerlukan data waktu.
+Radio: Digunakan untuk memilih satu opsi di antara beberapa pilihan.
+
+## 4. Bagaimana cara kamu mengatur tema (theme) dalam aplikasi Flutter agar aplikasi yang dibuat konsisten? Apakah kamu mengimplementasikan tema pada aplikasi yang kamu buat?
+Tema pada aplikasi dikelola menggunakan Theme.of(context) untuk memastikan keseragaman tampilan visual. Kode ini memanfaatkan colorScheme.primary untuk menentukan warna pada AppBar dan tombol. Pengaturan tema secara global dapat dilakukan di MaterialApp melalui ThemeData untuk mengonfigurasi warna, tipografi, dan elemen visual lainnya.
+
+Berikut adalah implementasi tema pada tugas ini:
+
+// Latar belakang AppBar menggunakan warna utama dari skema warna aplikasi.
+backgroundColor: Theme.of(context).colorScheme.primary,
+
+
+## 5. Bagaimana cara kamu menangani navigasi dalam aplikasi dengan banyak halaman pada Flutter?
+Navigasi dalam aplikasi dilakukan dengan menggunakan Navigator bersama MaterialPageRoute untuk berpindah antar layar. Drawer berfungsi sebagai menu navigasi samping. Fungsi Navigator.push() digunakan untuk membuka halaman baru, sementara Navigator.pushReplacement() menggantikan halaman yang sedang ditampilkan. Hal ini mempermudah pengguna untuk beralih antara halaman utama dan formulir penambahan item.

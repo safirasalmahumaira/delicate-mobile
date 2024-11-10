@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:delicate_mobile/widgets/left_drawer.dart';
+import 'package:delicate_mobile/widgets/item_card.dart';
 
 class MyHomePage extends StatelessWidget {
     MyHomePage({super.key});
@@ -6,9 +8,9 @@ class MyHomePage extends StatelessWidget {
     final String name = 'Safira Salma Humaira'; // Nama
     final String className = 'PBP F'; // Kelas
     final List<ItemHomepage> items = [
-         ItemHomepage("Lihat Daftar Produk", Icons.shop, Colors.red),
-         ItemHomepage("Tambah Produk", Icons.add, Colors.pinkAccent),
-         ItemHomepage("Logout", Icons.logout, Colors.pink.shade200),
+         ItemHomepage("Lihat Daftar Produk", Icons.shopping_cart, Colors.pink.shade300),
+         ItemHomepage("Tambah Item", Icons.add, Colors.pink.shade200),
+         ItemHomepage("Logout", Icons.logout, Colors.pink.shade100),
     ];
 
     @override
@@ -17,7 +19,7 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       // AppBar adalah bagian atas halaman yang menampilkan judul.
       appBar: AppBar(
-        // Judul aplikasi "Mental Health Tracker" dengan teks putih dan tebal.
+        // Judul aplikasi "delicate" dengan teks putih dan tebal.
         title: const Text(
           'delicate',
           style: TextStyle(
@@ -27,7 +29,11 @@ class MyHomePage extends StatelessWidget {
         ),
         // Warna latar belakang AppBar diambil dari skema warna tema aplikasi.
         backgroundColor: Theme.of(context).colorScheme.primary,
+        // Mengganti warna icon drawer menjadi putih
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
+      // Masukkan drawer sebagai parameter nilai drawer dari widget Scaffold
+      drawer: const LeftDrawer(),
       // Body halaman dengan padding di sekelilingnya.
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -58,7 +64,7 @@ class MyHomePage extends StatelessWidget {
                   const Padding(
                     padding: EdgeInsets.only(top: 16.0),
                     child: Text(
-                      'Welcome to Delicate',
+                      'Welcome to delicate',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18.0,
@@ -90,15 +96,6 @@ class MyHomePage extends StatelessWidget {
     );
   }
 }
-
-class ItemHomepage {
-  final String name;
-  final IconData icon;
-  final Color color; // Tambahkan warna di sini
-
-  ItemHomepage(this.name, this.icon, this.color);
-}
-
 
 class InfoCard extends StatelessWidget {
   // Kartu informasi yang menampilkan title dan content.
@@ -133,47 +130,3 @@ class InfoCard extends StatelessWidget {
   }
 }
 
-class ItemCard extends StatelessWidget {
-  final ItemHomepage item;
-
-  const ItemCard(this.item, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      // Gunakan warna dari item
-      color: item.color, // Ini akan mengambil warna dari item yang diberikan
-      borderRadius: BorderRadius.circular(12),
-      child: InkWell(
-        onTap: () {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(content: Text("Kamu telah menekan tombol ${item.name}!"))
-            );
-        },
-        child: Container(
-          padding: const EdgeInsets.all(8),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  item.icon,
-                  color: Colors.white,
-                  size: 30.0,
-                ),
-                const Padding(padding: EdgeInsets.all(3)),
-                Text(
-                  item.name,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(color: Colors.white),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
