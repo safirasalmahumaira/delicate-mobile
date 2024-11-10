@@ -112,7 +112,7 @@ onTap: () {
 },
 ```
 
-<details>
+</details>
 
 
 <details>
