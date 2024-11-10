@@ -67,17 +67,31 @@ Selanjutnya, saya merapikan kode dengan memindahkan beberapa bagian ke dalam fil
 
 Untuk membuat tiga tombol sederhana dengan ikon dan teks—"Lihat Daftar Produk," "Tambah Produk," dan "Logout"—saya menggunakan kelas ItemHomepage yang mendefinisikan nama, ikon, dan warna setiap tombol. Objek-objek ini disimpan dalam daftar items:
 
-dart
-Copy code
+```dart
 final List<ItemHomepage> items = [
   ItemHomepage("Lihat Daftar Produk", Icons.list_alt, Colors.red),
   ItemHomepage("Tambah Produk", Icons.add, Colors.blue),
   ItemHomepage("Logout", Icons.logout, Colors.yellow),
 ];
+```
+
+Jelaskan cara kamu menerapkan checklist di atas.
+Saya membuat proyek Flutter bernama delicate-mobile menggunakan VS Code. Setelah menginstal semua ekstensi yang diperlukan, saya memulai proyek ini dengan menekan command + shift + p.
+
+Selanjutnya, saya merapikan kode dengan memindahkan beberapa bagian ke dalam file menu.dart yang saya buat.
+
+Untuk membuat tiga tombol sederhana dengan ikon dan teks—"Lihat Daftar Produk," "Tambah Produk," dan "Logout"—saya menggunakan kelas ItemHomepage yang mendefinisikan nama, ikon, dan warna setiap tombol. Objek-objek ini disimpan dalam daftar items:
+
+```dart
+final List<ItemHomepage> items = [
+  ItemHomepage("Lihat Daftar Produk", Icons.list_alt, Colors.red),
+  ItemHomepage("Tambah Produk", Icons.add, Colors.blue),
+  ItemHomepage("Logout", Icons.logout, Colors.yellow),
+];
+```
 Setiap tombol memiliki warna latar belakang yang berbeda, yang diatur menggunakan properti color di dalam ItemCard melalui widget Material:
 
-dart
-Copy code
+```dart
 return Material(
   color: item.color, // Warna diambil dari properti color
   borderRadius: BorderRadius.circular(12),
@@ -85,10 +99,10 @@ return Material(
     // Aksi untuk interaksi
   ),
 );
+```
 Saya juga menambahkan aksi untuk menampilkan snackbar ketika tombol ditekan. Di dalam ItemCard, InkWell menangani aksi saat tombol ditekan, dan ScaffoldMessenger digunakan untuk menampilkan snackbar yang sesuai dengan nama tombol:
 
-dart
-Copy code
+```dart
 onTap: () {
   ScaffoldMessenger.of(context)
     ..hideCurrentSnackBar()
@@ -96,12 +110,11 @@ onTap: () {
       SnackBar(content: Text("Kamu telah menekan tombol ${item.name}")),
     );
 },
-
-</details>
+```
 
 
 <details>
-  <summary>Tugas 3</summary>
+  <summary>Tugas 8</summary>
 
 ## 1. Apa kegunaan const di Flutter? Jelaskan apa keuntungan ketika menggunakan const pada kode Flutter. Kapan sebaiknya kita menggunakan const, dan kapan sebaiknya tidak digunakan?
 Di Flutter, const digunakan untuk mendefinisikan objek-objek yang sifatnya tetap (immutable) dan menjadikannya konstan pada saat kompilasi (compile-time constants). Artinya, nilai-nilai tersebut sudah ditentukan ketika aplikasi dikompilasi, bukan saat dijalankan. Ini dapat menghemat penggunaan memori karena Flutter tidak perlu membuat ulang objek tersebut setiap kali widget diperbarui. Menggunakan const memberikan keuntungan berupa peningkatan kinerja, sebab objek const hanya dibuat satu kali. Sebaiknya const diterapkan pada widget yang statis dan tidak berubah selama siklus hidup aplikasi (seperti teks, ikon, atau padding yang tetap). Selain itu, const cocok untuk elemen-elemen dengan nilai tetap yang sering digunakan di beberapa bagian aplikasi, seperti warna atau margin tertentu. Namun, const sebaiknya dihindari pada widget yang bergantung pada state atau kondisi yang bisa berubah.
@@ -113,20 +126,24 @@ Column dan Row adalah widget layout di Flutter yang digunakan untuk menempatkan 
 Column: Menyusun widget secara vertikal, dari atas ke bawah. Biasanya dipakai untuk menumpuk elemen-elemen dalam satu kolom pada layar.
 Row: Menyusun widget secara horizontal, dari kiri ke kanan, sehingga elemen-elemen ditempatkan berdampingan.
 Contoh penggunaan Column:
+```dart
 Column(
   children: [
     Text("Item 1"),
     Text("Item 2"),
   ],
 );
+```
 
 Contoh penggunaan Row:
+```dart
 Row(
   children: [
     Icon(Icons.star),
     Text("Rating"),
   ],
 );
+```
 
 
 ## 3. Sebutkan apa saja elemen input yang kamu gunakan pada halaman form yang kamu buat pada tugas kali ini. Apakah terdapat elemen input Flutter lain yang tidak kamu gunakan pada tugas ini? Jelaskan!
@@ -147,8 +164,10 @@ Tema pada aplikasi dikelola menggunakan Theme.of(context) untuk memastikan keser
 
 Berikut adalah implementasi tema pada tugas ini:
 
+```dart
 // Latar belakang AppBar menggunakan warna utama dari skema warna aplikasi.
 backgroundColor: Theme.of(context).colorScheme.primary,
+```
 
 
 ## 5. Bagaimana cara kamu menangani navigasi dalam aplikasi dengan banyak halaman pada Flutter?
