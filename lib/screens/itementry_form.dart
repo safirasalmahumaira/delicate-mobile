@@ -1,5 +1,9 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:delicate_mobile/screens/menu.dart';
 import 'package:delicate_mobile/widgets/left_drawer.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 
 class ItemEntryFormPage extends StatefulWidget {
   const ItemEntryFormPage({super.key});
@@ -10,35 +14,38 @@ class ItemEntryFormPage extends StatefulWidget {
 
 class _ItemEntryFormPageState extends State<ItemEntryFormPage> {
   final _formKey = GlobalKey<FormState>();
+
   String _name = "";
+  int _price = 0;
   String _description = "";
-  int _amount = 0;
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return Scaffold(
       appBar: AppBar(
         title: const Center(
           child: Text(
-            'Tambah Item',
+            'Form Tambah Item Baru',
           ),
         ),
         backgroundColor: Theme.of(context).colorScheme.primary,
         foregroundColor: Colors.white,
       ),
-      drawer: const LeftDrawer(), // Menambahkan drawer di sini
+      drawer: const LeftDrawer(),
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Field untuk memasukkan nama item
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
                   decoration: InputDecoration(
-                    hintText: "Name",
-                    labelText: "Name",
+                    hintText: "Item Name",
+                    labelText: "Item Name",
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
@@ -50,15 +57,51 @@ class _ItemEntryFormPageState extends State<ItemEntryFormPage> {
                   },
                   validator: (String? value) {
                     if (value == null || value.isEmpty) {
-                      return "Nama Item tidak boleh kosong!";
+                      return "Item tidak boleh kosong!";
                     }
-                    if (value.length < 2) {
-                      return "Nama Item harus memiliki minimal 2 karakter!";
+                    if (value.length < 3) {
+                      return "Item harus memiliki minimal 3 karakter!";
+                    }
+                    if (value.length > 25) {
+                      return "Item tidak boleh lebih dari 25 karakter!";
                     }
                     return null;
                   },
                 ),
               ),
+
+              // Field untuk memasukkan harga item
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    hintText: "Price",
+                    labelText: "Price",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                  ),
+                  onChanged: (String? value) {
+                    setState(() {
+                      _price = int.tryParse(value!) ?? 0;
+                    });
+                  },
+                  validator: (String? value) {
+                    if (value == null || value.isEmpty) {
+                      return "Price tidak boleh kosong!";
+                    }
+                    if (int.tryParse(value) == null) {
+                      return "Price harus berupa angka!";
+                    }
+                    if (int.tryParse(value)! < 0) {
+                      return "Price tidak boleh negatif!";
+                    }
+                    return null;
+                  },
+                ),
+              ),
+
+              // Field untuk memasukkan deskripsi item
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
@@ -78,43 +121,12 @@ class _ItemEntryFormPageState extends State<ItemEntryFormPage> {
                     if (value == null || value.isEmpty) {
                       return "Description tidak boleh kosong!";
                     }
-                    if (value.length < 10) {
-                      return "Description harus memiliki minimal 10 karakter!";
-                    }
                     return null;
                   },
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    hintText: "Amount",
-                    labelText: "Amount",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                  ),
-                  onChanged: (String? value) {
-                    setState(() {
-                      _amount = int.tryParse(value!) ?? 0;
-                    });
-                  },
-                  validator: (String? value) {
-                    if (value == null || value.isEmpty) {
-                      return "Amount tidak boleh kosong!";
-                    }
-                    final amount = int.tryParse(value);
-                    if (amount == null) {
-                      return "Amount harus berupa angka!";
-                    }
-                    if (amount < 0) {
-                      return "Amount tidak boleh negatif!";
-                    }
-                    return null;
-                  },
-                ),
-              ),
+
+              // Tombol Save
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Padding(
@@ -124,35 +136,36 @@ class _ItemEntryFormPageState extends State<ItemEntryFormPage> {
                       backgroundColor: MaterialStateProperty.all(
                           Theme.of(context).colorScheme.primary),
                     ),
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: const Text('Item berhasil tersimpan'),
-                              content: SingleChildScrollView(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('Item: $_name'),
-                                    Text('Amount: $_amount'), 
-                                    Text('Description: $_description'),
-                                  ],
-                                ),
-                              ),
-                              actions: [
-                                TextButton(
-                                  child: const Text('OK'),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                    _formKey.currentState!.reset();
-                                  },
-                                ),
-                              ],
-                            );
-                          },
+                        // Kirim data ke Django
+                        final response = await request.postJson(
+                          "http://127.0.0.1:8000/create-flutter/",
+                          jsonEncode(<String, String>{
+                            'name': _name,
+                            'price': _price.toString(),
+                            'description': _description,
+                          }),
                         );
+                        if (context.mounted) {
+                          if (response['status'] == 'success') {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text("Item baru berhasil disimpan!"),
+                              ),
+                            );
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(builder: (context) => MyHomePage()),
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text("Terdapat kesalahan, silakan coba lagi."),
+                              ),
+                            );
+                          }
+                        }
                       }
                     },
                     child: const Text(

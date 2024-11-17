@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:delicate_mobile/widgets/left_drawer.dart';
 import 'package:delicate_mobile/widgets/item_card.dart';
+import 'package:delicate_mobile/widgets/left_drawer.dart';
 
 class MyHomePage extends StatelessWidget {
-    MyHomePage({super.key});
-    final String npm = '2306245850'; // NPM
-    final String name = 'Safira Salma Humaira'; // Nama
-    final String className = 'PBP F'; // Kelas
-    final List<ItemHomepage> items = [
-         ItemHomepage("Lihat Daftar Produk", Icons.shopping_cart, Colors.pink.shade300),
-         ItemHomepage("Tambah Item", Icons.add, Colors.pink.shade200),
-         ItemHomepage("Logout", Icons.logout, Colors.pink.shade100),
-    ];
+  MyHomePage({super.key});
 
-    @override
-    Widget build(BuildContext context) {
+  final String npm = '2306245850';
+  final String name = 'Safira Salma Humaira';
+  final String className = 'PBP F';
+
+  final List<ItemHomepage> items = [
+    ItemHomepage("Lihat Daftar Produk", Icons.list_alt, Colors.pink.shade100),
+    ItemHomepage("Tambah Produk", Icons.add, Colors.pink.shade200),
+    ItemHomepage("Logout", Icons.logout, Colors.pink.shade300),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
     // Scaffold menyediakan struktur dasar halaman dengan AppBar dan body.
     return Scaffold(
       // AppBar adalah bagian atas halaman yang menampilkan judul.
       appBar: AppBar(
-        // Judul aplikasi "delicate" dengan teks putih dan tebal.
         title: const Text(
           'delicate',
           style: TextStyle(
@@ -50,15 +51,12 @@ class MyHomePage extends StatelessWidget {
                 InfoCard(title: 'Class', content: className),
               ],
             ),
-
             // Memberikan jarak vertikal 16 unit.
             const SizedBox(height: 16.0),
-
             // Menempatkan widget berikutnya di tengah halaman.
             Center(
               child: Column(
                 // Menyusun teks dan grid item secara vertikal.
-
                 children: [
                   // Menampilkan teks sambutan dengan gaya tebal dan ukuran 18.
                   const Padding(
@@ -71,7 +69,6 @@ class MyHomePage extends StatelessWidget {
                       ),
                     ),
                   ),
-
                   // Grid untuk menampilkan ItemCard dalam bentuk grid 3 kolom.
                   GridView.count(
                     primary: true,
@@ -81,7 +78,6 @@ class MyHomePage extends StatelessWidget {
                     crossAxisCount: 3,
                     // Agar grid menyesuaikan tinggi kontennya.
                     shrinkWrap: true,
-
                     // Menampilkan ItemCard untuk setiap item dalam list items.
                     children: items.map((ItemHomepage item) {
                       return ItemCard(item);
@@ -99,9 +95,8 @@ class MyHomePage extends StatelessWidget {
 
 class InfoCard extends StatelessWidget {
   // Kartu informasi yang menampilkan title dan content.
-
-  final String title;  // Judul kartu.
-  final String content;  // Isi kartu.
+  final String title;
+  final String content;
 
   const InfoCard({super.key, required this.title, required this.content});
 
@@ -129,4 +124,3 @@ class InfoCard extends StatelessWidget {
     );
   }
 }
-

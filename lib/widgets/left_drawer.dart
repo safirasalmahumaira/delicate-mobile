@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:delicate_mobile/screens/menu.dart';
 import 'package:delicate_mobile/screens/itementry_form.dart';
+import 'package:delicate_mobile/screens/list_itementry.dart';
+import 'package:delicate_mobile/screens/menu.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
@@ -11,6 +12,7 @@ class LeftDrawer extends StatelessWidget {
       child: ListView(
         children: [
           DrawerHeader(
+            // TODO: Bagian drawer header
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.primary,
             ),
@@ -27,40 +29,52 @@ class LeftDrawer extends StatelessWidget {
                 ),
                 Padding(padding: EdgeInsets.all(8)),
                 Text(
-                  "Snap, dan dapatkan segalanya!",
+                  "GO GRAB YOURS",
+                  textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 15.0, // Ukuran font 15
-                    color: Colors.white, // Warna putih
-                    fontWeight: FontWeight.normal, // Weight biasa
+                    fontSize: 15,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.white,
                   ),
-                  textAlign: TextAlign.center, // Center alignment
                 ),
               ],
             ),
           ),
-          ListTile(
-            leading: const Icon(Icons.home_outlined),
-            title: const Text('Halaman Utama'),
-            // Bagian redirection ke MyHomePage
-            onTap: () {
-              Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => MyHomePage(),
-                  ));
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.shopping_cart),
-            title: const Text('Tambah Item'),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ItemEntryFormPage(),
-                ),
-              );
-            },
+            // TODO: Bagian routing
+            ListTile(
+              leading: const Icon(Icons.home_outlined),
+              title: const Text('Halaman Utama'),
+              // Bagian redirection ke MyHomePage
+              onTap: () {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MyHomePage(),
+                    ));
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.add),
+              title: const Text('Tambah Item'),
+              // Bagian redirection ke MoodEntryFormPage
+              onTap: () {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ItemEntryFormPage(),
+                    ));
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.add_reaction_rounded),
+              title: const Text('Daftar Item'),
+              onTap: () {
+                  // Route menu ke halaman item
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const ItemEntryPage()),
+                  );
+              },
           ),
         ],
       ),
