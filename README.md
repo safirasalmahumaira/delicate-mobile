@@ -179,7 +179,7 @@ Navigasi dalam aplikasi dilakukan dengan menggunakan Navigator bersama MaterialP
 
 
 <details>
-  <summary>Tugas 7</summary>
+  <summary>Tugas 9</summary>
 
 ## 1. Jelaskan mengapa kita perlu membuat model untuk melakukan pengambilan ataupun pengiriman data JSON? Apakah akan terjadi error jika kita tidak membuat model terlebih dahulu?
 Membuat model untuk pengambilan atau pengiriman data JSON penting karena model membantu menyusun data JSON dalam format yang lebih terstruktur dan mudah dikelola, seperti objek. Ini juga memudahkan validasi dan manipulasi data, serta mengurangi kemungkinan kesalahan saat terjadi perubahan format data. Tanpa model, kita akan menangani data secara manual, yang bisa rentan terhadap error, lebih sulit untuk dipelihara, dan menambah kompleksitas kode.
